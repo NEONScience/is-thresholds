@@ -1,0 +1,11 @@
+Package: metDownloadR
+Type: Package
+Title: Download Environmental Data
+Version: 0.1.0
+Authors: Josh Roberti <jaroberti87@gmail.com>, Cody Flagg <cody.flagg@gmail.com>, Robert Lee <rhlee@colorado.edu>
+Maintainer: Robert Lee <rhlee@colorado.edu>
+Description: A tool for downloading environmental data, worldwide. metDownloadR is designed to work with the metScanR package to retrieve data from sites discovered through metScanR.
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
+Depends: metScanR, RNRCS, rnoaa, jsonlite, httr, plyr
