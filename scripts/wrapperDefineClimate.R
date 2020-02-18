@@ -1,33 +1,39 @@
+if(dir.exists("~/Github")){
+  baseDir="~/Github/"
+}else{
+  baseDir="~/GitHub/"
+}
 
-<<<<<<< HEAD
 #MAKE SURE TO BUILD THE metDownloadR package first before running!
-setwd("~/Github/is-thresholds/metDownloadR")
+setwd(paste0(baseDir, "is-thresholds/metDownloadR"))
 library(devtools)
 build()
 install()
 
 #move back to is-thresholds directory:
-setwd("~/Github/is-thresholds/")
+setwd(paste0(baseDir, "is-thresholds/"))
 
 #source the define climate ranges function:
-base::source("~/Github/is-thresholds/scripts/defineClimateRanges.R")
+base::source(paste0(baseDir, "is-thresholds/scripts/defineClimateRanges.R"))
 
-=======
+
 #source the define climate ranges function:
-base::source("~/GitHub/NEON-FIU-document-IPT/dataQAQC/defineClimateRanges.R")
-base::source("~/GitHub/is-thresholds/scripts/getClimateData.R")
-load("~/GitHub/is-thresholds/metDownloadR/data/resTracking.rda")
->>>>>>> 453347e2766b4dedebcab39b2a086c4ab397789a
+base::source(paste0(baseDir, "/NEON-FIU-document-IPT/dataQAQC/defineClimateRanges.R"))
+base::source(paste0(baseDir,"/is-thresholds/scripts/getClimateData.R"))
+load(paste0(baseDir,"is-thresholds/metDownloadR/data/resTracking.rda"))
+
 #sort by ID:
 #saveRDS(NEONsites,"C:/Users/jroberti/Git/NEON-FIU-document-IPT/dataQAQC/neonSiteList.rds")
-NEONsites<-readRDS("~/Github/is-thresholds/data/neonSiteList.rds")
+NEONsites<-readRDS(paste0(baseDir,"is-thresholds/data/neonSiteList.rds"))
 NEONsites<-NEONsites[with(NEONsites,order(Site.ID)),]
 sites<-NEONsites$Site.ID
 
 #startSite<-grep("YELL",sites)
 #useSites<-sites[startSite:length(sites)]
+saveDir=paste0(baseDir,"is-thresholds/colocated_data/")
 #open directory to see what I've already run, and then run for sites that haven't been run yet:
-temp<-list.files("~/Github/is-thresholds/data/")
+temp<-list.files(saveDir)
+
 #filter temp by variable:
 temp<-temp[grep("all",temp)]
 #sites that have already run:
@@ -37,11 +43,11 @@ alreadyRun<-gsub("\\_.*","",temp)
 #useSites<-runThese[-c(1,2,3)]
 #runThese=runThese[c(1:10)]
 
-soloSites<-read.csv(file = "~/Github/is-thresholds/data/solo sites.txt", stringsAsFactors = F, header = F)
+soloSites<-read.csv(file = paste0(baseDir, "is-thresholds/data/solo sites.txt"), stringsAsFactors = F, header = F)
 #runThese=soloSites[24:37,1] # monolith's split of sites
 #runThese=soloSites[1:18, 1] # rhlee12 CyVerse split of sites
 
-clustSites<-read.csv(file = "~/Github/is-thresholds/data/sites_clusters.txt", stringsAsFactors = F, header = F)
+clustSites<-read.csv(file = paste0(baseDir, "is-thresholds/data/sites_clusters.txt"), stringsAsFactors = F, header = F)
 #runThese<-clustSites[18:nrow(clustSites),1]
 #runThese<-clustSites[4:nrow(clustSites),1]
 
@@ -65,7 +71,7 @@ for(i in 1:length(runThese)){
                                  recrunchThresholds=T,
                                  overwriteData=T,
                                  numStations=3,
-                                 save.dir = "~/Github/is-thresholds/data/",
+                                 save.dir = saveDir,
                                  token = token))
   if(!class(result)=="try-error"){
     message(paste0("Thresholds Generated for ", runThese[i]))
