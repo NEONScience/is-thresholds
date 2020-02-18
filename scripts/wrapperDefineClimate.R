@@ -27,11 +27,7 @@ sites<-NEONsites$Site.ID
 #startSite<-grep("YELL",sites)
 #useSites<-sites[startSite:length(sites)]
 #open directory to see what I've already run, and then run for sites that haven't been run yet:
-<<<<<<< HEAD
 temp<-list.files("~/Github/is-thresholds/data/")
-=======
-temp<-list.files("~/GitHub/is-thresholds/data/")
->>>>>>> 453347e2766b4dedebcab39b2a086c4ab397789a
 #filter temp by variable:
 temp<-temp[grep("all",temp)]
 #sites that have already run:
@@ -58,11 +54,8 @@ runThese<-sort(allSites[!allSites %in% alreadyRun])
 #token="a2d2b292a8b74cb496060f09501204c6"   #ROBERT'S TOKEN
 token="16088448e1b149509e45e401196106f0"  #JOSH'S TOKEN
 
-<<<<<<< HEAD
-for(i in 11:length(runThese[2:10])){
-=======
+
 for(i in 1:length(runThese)){
->>>>>>> 453347e2766b4dedebcab39b2a086c4ab397789a
   siteCode<-paste0("NEON:",runThese[i])
   #siteCode<-paste0("NEON:","CPER")
   result=try(getClimateData(siteID=siteCode,
@@ -72,11 +65,7 @@ for(i in 1:length(runThese)){
                                  recrunchThresholds=T,
                                  overwriteData=T,
                                  numStations=3,
-<<<<<<< HEAD
                                  save.dir = "~/Github/is-thresholds/data/",
-=======
-                                 save.dir = "~/GitHub/is-thresholds/data/",
->>>>>>> 453347e2766b4dedebcab39b2a086c4ab397789a
                                  token = token))
   if(!class(result)=="try-error"){
     message(paste0("Thresholds Generated for ", runThese[i]))
