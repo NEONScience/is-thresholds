@@ -44,7 +44,7 @@
 ##############################################################################################
 
 
-getData<-function(site_meta, start_date, end_date, temp_agg, token=NA){
+getData<-function(site_meta, start_date, end_date, temp_agg, token=NA, save_file=NULL){
   #browser()
   #set out to no data right off the bat:
   out<-"NO DATA"
@@ -76,7 +76,7 @@ getData<-function(site_meta, start_date, end_date, temp_agg, token=NA){
   #get station's platform and IDs
   
   #merge resTrackFilter with station identifiers:
-
+  
   if(nrow(resTrackFilter)>0){
     mergedMeta<-merge(stationMeta,resTrackFilter,by=intersect(names(stationMeta),names(resTrackFilter)))
     #browser()
@@ -141,7 +141,7 @@ getData<-function(site_meta, start_date, end_date, temp_agg, token=NA){
           #pingTimeBgn=pingTimeBgn,
           #pingTimeEnd=pingTimeEnd
           
-         }
+        }
       }
       ### input helper function to clean missing data rows out.
       if(class(out)=="data.frame"){
@@ -149,7 +149,13 @@ getData<-function(site_meta, start_date, end_date, temp_agg, token=NA){
       }
     }
   }
-  return(out)
+  
+  if(is.null(save_file)){
+    return(out)
+  }else{
+    message("Saving data")
+    saveRDS(object = out, file = save_file)    
+  }
 }
 
 #function to convert time to mesonet format:
