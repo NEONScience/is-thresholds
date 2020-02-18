@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 #MAKE SURE TO BUILD THE metDownloadR package first before running!
 setwd("~/Github/is-thresholds/metDownloadR")
 library(devtools)
@@ -11,6 +12,12 @@ setwd("~/Github/is-thresholds/")
 #source the define climate ranges function:
 base::source("~/Github/is-thresholds/scripts/defineClimateRanges.R")
 
+=======
+#source the define climate ranges function:
+base::source("~/GitHub/NEON-FIU-document-IPT/dataQAQC/defineClimateRanges.R")
+base::source("~/GitHub/is-thresholds/scripts/getClimateData.R")
+load("~/GitHub/is-thresholds/metDownloadR/data/resTracking.rda")
+>>>>>>> 453347e2766b4dedebcab39b2a086c4ab397789a
 #sort by ID:
 #saveRDS(NEONsites,"C:/Users/jroberti/Git/NEON-FIU-document-IPT/dataQAQC/neonSiteList.rds")
 NEONsites<-readRDS("~/Github/is-thresholds/data/neonSiteList.rds")
@@ -20,7 +27,11 @@ sites<-NEONsites$Site.ID
 #startSite<-grep("YELL",sites)
 #useSites<-sites[startSite:length(sites)]
 #open directory to see what I've already run, and then run for sites that haven't been run yet:
+<<<<<<< HEAD
 temp<-list.files("~/Github/is-thresholds/data/")
+=======
+temp<-list.files("~/GitHub/is-thresholds/data/")
+>>>>>>> 453347e2766b4dedebcab39b2a086c4ab397789a
 #filter temp by variable:
 temp<-temp[grep("all",temp)]
 #sites that have already run:
@@ -43,25 +54,37 @@ allSites<-c(soloSites$V1,clustSites$V1)
 #identify sites that still need to be run:
 runThese<-sort(allSites[!allSites %in% alreadyRun])
 
-
 #Synoptic tokens:
 #token="a2d2b292a8b74cb496060f09501204c6"   #ROBERT'S TOKEN
 token="16088448e1b149509e45e401196106f0"  #JOSH'S TOKEN
 
+<<<<<<< HEAD
 for(i in 11:length(runThese[2:10])){
+=======
+for(i in 1:length(runThese)){
+>>>>>>> 453347e2766b4dedebcab39b2a086c4ab397789a
   siteCode<-paste0("NEON:",runThese[i])
   #siteCode<-paste0("NEON:","CPER")
-  result=try(defineClimateRanges(siteID=siteCode,
+  result=try(getClimateData(siteID=siteCode,
                                  radius=100,
                                  startDate="2010-01-01 00:00:00",
                                  endDate=as.character(Sys.time()),
                                  recrunchThresholds=T,
                                  overwriteData=T,
                                  numStations=3,
+<<<<<<< HEAD
                                  save.dir = "~/Github/is-thresholds/data/",
+=======
+                                 save.dir = "~/GitHub/is-thresholds/data/",
+>>>>>>> 453347e2766b4dedebcab39b2a086c4ab397789a
                                  token = token))
   if(!class(result)=="try-error"){
     message(paste0("Thresholds Generated for ", runThese[i]))
+    # git2r::pull(repo = "~/GitHub/is-thresholds/", name= "NEONScience/is-thresholds")
+    # git2r::add(repo = "~/GitHub/is-thresholds/", path = "./data/")
+    # git2r::commit(repo = "~/GitHub/is-thresholds/", message = paste0(siteCocde, " threshold data"))
+    # git2r::push()
+    # 
   }else{message(paste0("Thresholds Generation failed for ", runThese[i], "!"))}
 }
 
