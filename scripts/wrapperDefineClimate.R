@@ -61,7 +61,7 @@ runThese<-sort(allSites[!allSites %in% alreadyRun])
 token="16088448e1b149509e45e401196106f0"  #JOSH'S TOKEN
 
 
-for(i in 1:length(runThese)){
+for(i in 1:length(runThese[1:6])){
   siteCode<-paste0("NEON:",runThese[i])
   #siteCode<-paste0("NEON:","CPER")
   result=try(getClimateData(siteID=siteCode,
